@@ -1,0 +1,94 @@
+﻿@using Bazaar.Models.ListingViewModels
+@model AddListingViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+$(document).ready(function(){
+    $(window).keydown(function(event){
+        if(event.keyCode == 13 && event.target.nodeName!='TEXTAREA')
+        {
+          event.preventDefault();
+          return false;
+        }
+    });
+});
+</script>
+
+<style>
+    .left-inner-addon {
+        position: relative;
+    }
+
+        .left-inner-addon input {
+            padding-left: 22px;
+        }
+
+        .left-inner-addon span {
+            position: absolute;
+            padding: 7px 12px;
+            pointer-events: none;
+            color: black;
+        }
+
+    .right-inner-addon {
+        position: relative;
+    }
+
+        .right-inner-addon input {
+            padding-right: 30px;
+        }
+
+        .right-inner-addon span {
+            position: absolute;
+            right: 0px;
+            padding: 7px 12px;
+            pointer-events: none;
+        }
+    .description textarea {
+        color: green;
+        max-width: none;
+    }
+</style>
+@using (Html.BeginForm("Add", "Listing", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Create a new Listing.</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="form-group col-md-12">
+        @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group  col-md-12">
+        @Html.LabelFor(m => m.price, new { @class = "ontrol-label" })
+        <div class="left-inner-addon">
+            <span>$</span>
+            @Html.TextBoxFor(m => m.price, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group  col-md-12">
+        @Html.LabelFor(m => m.description, new { @class = "ontrol-label" })
+        <div class="description">
+            @Html.TextAreaFor(m => m.description, 5, 1, new { @class = "form-control" })
+            @{/*Html.TextBoxFor(m => m.description, new { @class = "form-control" })*/}
+        </div>
+    </div>
+
+    <div class="form-group col-md-12">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.CategoryType, new { @class = "control-label" })
+        </div>
+            @Html.DropDownListFor(m => m.CategoryType, new SelectList(Model.CategoryOptions, "Value", "Value"), new { @class = "form-control" })
+    </div>
+
+    <div class="form-group ">
+        <div class=" col-xs-2 col-xs-offset-5">
+            <input type="submit" class="btn btn-default" value="Add" />
+        </div>
+    </div>
+}
