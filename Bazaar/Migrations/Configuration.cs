@@ -1,5 +1,6 @@
 namespace Bazaar.Migrations
 {
+    using Bazaar.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -14,6 +15,12 @@ namespace Bazaar.Migrations
 
         protected override void Seed(Bazaar.Models.ApplicationDbContext context)
         {
+            for(var x = 1;x<=100;x++)
+            {
+                context.Listings.AddOrUpdate(
+                    new Listing("Test object " + x, 5, "obect to test the program", "~/Content/images/Placeholder.png", "Other", "fosh", "89128")
+                    );
+            }
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
@@ -24,7 +31,7 @@ namespace Bazaar.Migrations
             //      new Person { FullName = "Andrew Peters" },
             //      new Person { FullName = "Brice Lambson" },
             //      new Person { FullName = "Rowan Miller" }
-            //    );
+            //    );stin
             //
         }
     }

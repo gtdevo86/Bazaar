@@ -6,19 +6,20 @@
     @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Add A listing","Add","Listing")</li>
-        <li>@Html.ActionLink("Manage listings", "Manage", "Listing")</li>
+        <li>@Html.ActionLink("Add A listing", "Add", "Listing", routeValues: null , htmlAttributes: new { @class = "top-Action-links" })</li>
+        <li>@Html.ActionLink("Manage listings", "Manage", "Listing", new {page = 1 }, new { @class = "top-Action-links" })</li>
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            @Html.ActionLink("Hello " + User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "top-Action-links" })
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()" class ="top-Action-links">Log off</a></li>
     </ul>
     }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" , @class = "top-Action-links" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" , @class = "top-Action-links" })</li>
     </ul>
 }
+

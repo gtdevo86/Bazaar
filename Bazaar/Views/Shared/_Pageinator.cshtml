@@ -1,0 +1,93 @@
+﻿<ul class="nav navbar-nav navbar-left PageNavigation paginator">
+    @{
+        var ActionName = "Browse";
+        var ControllerName = "Listing";
+     }
+    @if (ViewData["Type"].ToString() == "Manage")
+
+    {
+        ActionName = "Manage";
+    }
+    @{
+            var StartPage = 0;
+            var EndPage = 0;
+            // in this case, too few pages, so display them all
+     }
+    @if (Model.MaxPages <= 9)
+    {
+        StartPage = 1;
+        EndPage = Model.MaxPages;
+    }
+    //in this case, curr_page is too close to the beginning
+    else if (Model.CurrentPage <= 5)
+    {
+        StartPage = 1;
+        EndPage = 7;
+    }
+    //in this case, curr_page is too close to the end
+    else if (Model.CurrentPage >= Model.MaxPages - 4)
+    {
+        StartPage = Model.MaxPages - 6;
+        EndPage = Model.MaxPages;
+    }
+    //regular case
+    else
+    {
+        StartPage = Model.CurrentPage - 2;
+        EndPage = Model.CurrentPage + 2;
+    }
+    @if (StartPage > 1)
+    {
+            <l1>
+                @if (ViewData["Type"].ToString() == "Browse")
+                {
+                    @Html.ActionLink("1", ActionName, ControllerName, new { Category = Model.Category, Distance = Model.Distance, page= 1 }, new { @class = "PageText" })
+                }
+                else if (ViewData["Type"].ToString() == "Manage")
+                {
+                    @Html.ActionLink("1", ActionName, ControllerName, new {page = 1 }, new { @class = "PageText" })
+                }
+            </l1>
+
+        }
+   @if (StartPage > 2)
+    {
+        <li>...</li>
+    }
+    @for (var x = StartPage; x <= EndPage; x++)
+    {
+        <l1 class="currentPage">
+            @if (Model.CurrentPage == x)
+            {
+                @x.ToString()
+            }
+            else
+            {
+                if (ViewData["Type"].ToString() == "Browse")
+                {
+                    @Html.ActionLink(@x.ToString(), ActionName, ControllerName, new { Category = Model.Category, Distance = Model.Distance, page = x }, new { @class = "PageText" })
+                }
+                else if (ViewData["Type"].ToString() == "Manage")
+                {
+                    @Html.ActionLink(@x.ToString(), ActionName, ControllerName, new { page = x }, new { @class = "PageText" })
+                }
+            }
+
+        </l1>
+    }
+    @if (EndPage < Model.MaxPages - 1)
+    {
+        <l1 class="PageText">...</l1>
+        if (EndPage < Model.MaxPages)
+        {
+            if (ViewData["Type"].ToString() == "Browse")
+            {
+                @Html.ActionLink((string)Model.MaxPages, ActionName, ControllerName, new { Category = Model.Category, Distance = Model.Distance, page = Model.MaxPages }, new { @class = "PageText" })
+            }
+            else if (ViewData["Type"].ToString() == "Manage")
+            {
+                @Html.ActionLink((string)Model.MaxPages, ActionName, ControllerName, new { page = Model.MaxPages }, new { @class = "PageText" })
+            }
+        }
+    }
+</ul>

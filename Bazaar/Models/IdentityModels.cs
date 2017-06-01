@@ -45,6 +45,7 @@ namespace Bazaar.Models
             userIdentity.AddClaim(new Claim("Latitude", this.Latitude.ToString()));
             userIdentity.AddClaim(new Claim("Longitude", this.Longitude.ToString()));
             userIdentity.AddClaim(new Claim("ZipCode", this.zipcode));
+            userIdentity.AddClaim(new Claim("UserName", this.UserName));
             return userIdentity;
         }
         //IndexableCollection

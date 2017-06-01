@@ -13,8 +13,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Portfolio</RootNamespace>
-    <AssemblyName>Portfolio</AssemblyName>
+    <RootNamespace>Bazaar</RootNamespace>
+    <AssemblyName>Bazaar</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -234,6 +234,14 @@
     <Compile Include="Migrations\201705290038395_v4.Designer.cs">
       <DependentUpon>201705290038395_v4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705292249484_v5.cs" />
+    <Compile Include="Migrations\201705292249484_v5.Designer.cs">
+      <DependentUpon>201705292249484_v5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705310337205_v6.cs" />
+    <Compile Include="Migrations\201705310337205_v6.Designer.cs">
+      <DependentUpon>201705310337205_v6.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="Models\AccountViewModels\ExternalLoginListViewModel.cs" />
@@ -248,9 +256,11 @@
     <Compile Include="Models\Listing.cs" />
     <Compile Include="Models\ListingViewModels\AddListingViewModel.cs" />
     <Compile Include="Models\ListingViewModels\BrowseListingViewModel.cs" />
+    <Compile Include="Models\ListingViewModels\EditListingViewModel.cs" />
     <Compile Include="Models\ListingViewModels\ManageListingViewModel.cs" />
     <Compile Include="Models\ListingViewModels\RemoveListingViewModel.cs" />
     <Compile Include="Models\ListingViewModels\SearchListingViewModel.cs" />
+    <Compile Include="Models\ListingViewModels\ViewListingViewModel.cs" />
     <Compile Include="Models\ManageViewModels\ManageViewModels.cs" />
     <Compile Include="Models\Precision.cs" />
     <Compile Include="Models\ZipCodeManager.cs" />
@@ -263,6 +273,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\Logo.png" />
+    <Content Include="Content\images\Placeholder.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -331,6 +342,9 @@
     <Content Include="Views\Listing\Index.cshtml" />
     <Content Include="Views\Listing\Manage.cshtml" />
     <Content Include="Views\Listing\Search.cshtml" />
+    <Content Include="Views\Listing\Edit.cshtml" />
+    <Content Include="Views\Shared\_Pageinator.cshtml" />
+    <Content Include="Views\Listing\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -358,6 +372,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705290038395_v4.resx">
       <DependentUpon>201705290038395_v4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705292249484_v5.resx">
+      <DependentUpon>201705292249484_v5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705310337205_v6.resx">
+      <DependentUpon>201705310337205_v6.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

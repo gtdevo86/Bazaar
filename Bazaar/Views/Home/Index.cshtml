@@ -1,53 +1,16 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
 <style>
     body {
         padding-top: 40px;
         padding-bottom: 40px;
     }
-
-    .search {
-
-    }
-        .search .input-group {
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid #000000;
-            padding: 15px;
-        }
-        .search .form-section {
-            background: rgba(0,0,0,0.6);
-            border: 2px solid #414141;
-            border-radius: 5px;
-            border-radius: 4px;
-        }
-    .search h1
-    {
-        color:white;
-        font-size:20px;
-    }
-
-    #custom-search-input
-    {
-        padding:10px;
-    }
-
-    .form-control
-    {
-        max-width: none;
-    }
-
-    #logo {
-        padding: 25px;
-        display: block;
-        margin: auto;
-    }
 </style>
-<img src="~/Content/images/Logo.png" id="logo" />
+<img src="~/Content/images/Logo.png" class="logo" />
 <div class="search">
     <div class="row">
-        <div id="custom-search-input">
+        <div class = "search-well">
             <div class="input-group col-xs-6 col-xs-offset-3">
                 <input type="text" class="form-control input-lg" placeholder="Find something near you!" />
                 <span class="input-group-btn">

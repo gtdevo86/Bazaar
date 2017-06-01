@@ -29,14 +29,14 @@ namespace Bazaar.Models
 
         [Required]
         [StringLength(450)]
-        public String OwnerId { get; set; }
+        public String OwnerUserName { get; set; }
 
         [Required]
         [StringLength(5)]
         public string OwnerZipcode { get; set; }
 
         [StringLength(450)]
-        public String BuyerId { get; set; }
+        public String BuyerUserName { get; set; }
 
         [Required]
         [DataType(DataType.ImageUrl)]
@@ -50,7 +50,7 @@ namespace Bazaar.Models
         [StringLength(40)]
         public String category { get; set; }
 
-        public Listing(string Name, float Price, string Description, string imgUrl, String Category, string OwnerID, string zipcode)
+        public Listing(string Name, float Price, string Description, string imgUrl, String Category, string UserName, string zipcode)
         {
             name = Name;
             price = Price;
@@ -58,7 +58,7 @@ namespace Bazaar.Models
             image = imgUrl;
             category = Category;
             completed = false;
-            OwnerId = OwnerID;
+            OwnerUserName = UserName;
             OwnerZipcode = zipcode;
         }
 

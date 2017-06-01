@@ -8,5 +8,7 @@ namespace Bazaar.Models.ListingViewModels
     public class ManageListingViewModel
     {
         public IEnumerable<Listing> Listings { get; set; }
+        public int MaxPages { get; set; }
+        public int CurrentPage { get; set; }
     }
 }

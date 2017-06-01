@@ -1,8 +1,11 @@
-﻿body {
+﻿/*
+    Main page settings
+*/
+body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-color: #074671;
-    color: white;
+    background-color:bisque; /*#074671;*/
+    color: Black;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -24,13 +27,146 @@ select,
 textarea {
     max-width: 280px;
 }
+/*Responsive Delete icon getes bigger on smaller screens*/
+/*screen-xs*/
+@media screen and (max-width: 480px) {
+    .DeleteIcon {
+        font-size: 600%;
+    }
+}
 
-.navbar-fixed-bottom {
-    background: #074671;
-    border: 0px
+/*screen-sm*/
+@media screen and (max-width: 768px) {
+    .DeleteIcon {
+        font-size: 425%;
+    }
+}
+/*screen-md+*/
+@media screen and (Min-width: 768px) {
+    .DeleteIcon {
+        font-size: 250%;
+    }
+}
+
+/*Footer settings*/
+.footer.navbar-fixed-bottom {
+    background-color:bisque;
+    border: 0px;
+    color:black;
+}
+
+/*Top NavBar settings*/
+.navbar-header a.top-Action-links,
+.navbar-header a.top-Action-links:visited,
+li a.top-Action-links:visited,
+li a.top-Action-links:link {
+    color: black;
 }
 
 .navbar-fixed-top {
     background: rgba(0, 0, 0,.4);
-    border: 0px
+    border: 0px;
+}
+
+/*Searchbar Settings*/
+.search .input-group {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid #000000;
+    padding: 15px;
+}
+
+.search .form-section {
+    background: rgba(0,0,0,0.6);
+    border: 2px solid #414141;
+    border-radius: 5px;
+    border-radius: 4px;
+}
+
+.search h1 {
+    color: white;
+    font-size: 20px;
+}
+
+.search .form-control {
+    max-width: none;
+}
+
+.search-well {
+    padding: 10px;
+}
+
+/*Logo settings*/
+.logo {
+    padding: 25px;
+    display: block;
+    margin: auto;
+}
+
+/*Settings for the moneysign on the form*/
+.left-inner-addon {
+    position: relative;
+}
+
+.left-inner-addon input {
+        padding-left: 22px;
+    }
+
+.left-inner-addon span {
+        position: absolute;
+        padding: 7px 12px;
+        pointer-events: none;
+        color: black;
+    }
+
+
+.right-inner-addon {
+    position: relative;
+}
+
+.right-inner-addon input {
+        padding-right: 30px;
+    }
+
+.right-inner-addon span {
+        position: absolute;
+        right: 0px;
+        padding: 7px 12px;
+        pointer-events: none;
+    }
+
+
+/*Settings for the textbox on the form*/
+.description textarea {
+    color: black;
+    max-width: none;
+}
+
+
+/*Settings for Page Navigation*/
+.paginator.PageNavigation {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    bottom: 0px;
+    left: 50%;
+    margin-left: -50%;
+}
+
+.paginator .PageNavigation li {
+    float: none;
+    display: inline-block;
+    font-size: 30px;
+}
+.paginator .PageText {
+    font-size: 30px;
+    color: white;
+}
+.paginator .currentPage {
+    font-size: 30px;
+    color: black;
+}
+.paginator .btn-default {
+    position: absolute;
+    right: 0px;
+    top: 0px;
 }
