@@ -15,7 +15,15 @@ $(document).ready(function(){
     });
 });
 </script>
-
+<style>
+    .checkbox {
+        -ms-transform: scale(2.5); /* IE */
+        -moz-transform: scale(2.5); /* FF */
+        -webkit-transform: scale(2.5); /* Safari and Chrome */
+        -o-transform: scale(2.5); /* Opera */
+        padding: 10px;
+    }
+</style>
 @using (Html.BeginForm("Edit", "Listing", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post,new { @class = "form-horizontal", role = "form"}))
 {
     @Html.AntiForgeryToken()
@@ -29,7 +37,7 @@ $(document).ready(function(){
     </div>
 
     <div class="form-group  col-md-12">
-        @Html.LabelFor(m => m.price, new { @class = "ontrol-label" })
+        @Html.LabelFor(m => m.price, new { @class = "control-label" })
         <div class="left-inner-addon">
             <span>$</span>
             @Html.TextBoxFor(m => m.price, new { @value = @Model.price, @class = "form-control" })
@@ -50,6 +58,15 @@ $(document).ready(function(){
         </div>
             @Html.DropDownListFor(m => m.CategoryType, new SelectList(Model.CategoryOptions, "Value", "Value"), new { @class = "form-control" })
     </div>
+
+    <div class="form-group  col-md-3">
+        @Html.LabelFor(m => m.Completed, new { @class = "control-label" })
+        <div class="col-md-2">
+            @Html.CheckBoxFor(m => m.Completed, new { @class = "form-control checkbox" })
+        </div>
+    </div>
+    <div class="col-md-7"></div>
+
     <input name="ListingId" type="hidden" value=@Model.ListingId />
     <input name="Completed" type="hidden" value=@Model.Completed.ToString() />
     <input name="OwnerUserName" type="hidden" value=@Model.OwnerUserName />
@@ -57,7 +74,7 @@ $(document).ready(function(){
     <input name="OwnerZipCode" type="hidden" value=@Model.OwnerZipCode />
     <input name="iurl" type="hidden" value=@Model.iurl />
     <div class="form-group ">
-        <div class=" col-xs-2 col-xs-offset-5">
+        <div class=" col-md-6 col-md-offset-6">
             <input type="submit" class="btn btn-default" value="Update" />
         </div>
     </div>

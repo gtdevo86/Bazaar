@@ -9,7 +9,6 @@ using Bazaar.Models;
 using My.Data.Annotations;
 using System.Linq;
 using System;
-using i4o;
 
 namespace Bazaar.Models
 {

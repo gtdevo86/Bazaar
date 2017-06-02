@@ -1,5 +1,4 @@
-﻿using i4o;
-using My.Data.Annotations;
+﻿using My.Data.Annotations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

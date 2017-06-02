@@ -1,14 +1,63 @@
-﻿@using Bazaar.Models.ListingViewModels
+﻿
+@using Bazaar.Models.ListingViewModels
 @model ViewListingViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="col-md-6 col-md-offset-3">
-    <h1 class="">@Model.CurrentListing.name</h1>
-    <hr />
-</div>
-<div class="col-md-12">
-    <h2>Price: $ @Model.CurrentListing.price </h2>
-</div>
+<style>
+    .listing-photo{
+        padding:30px;
+    }
+    .listing-text{
+        padding-top:30px;
+    }
+    .Rating
+    {
+        font-size:24px;
+        padding-top:15px;
+    }
 
+</style>
+<script src="~/bower_components/raty/lib/jquery.raty.js"></script>
+<div class="row">
+    <div class="col-md-6">
+        @{ string imgstr = "../" + Model.CurrentListing.image;}
+        <img src=@imgstr alt="Lights" style="width:100%" class="listing-photo"/>
+    </div>
+    <div class="col-md-4 col-md-offset-2 listing-text">
+        <h1 class=""><bold>@Model.CurrentListing.name</bold></h1>
+    </div>
+    <div class="col-md-2 Seller-name col-md-offset-1">
+        <h3 class="">Seller: <a href="#">@Model.CurrentListing.OwnerUserName</a></h3>
+    </div>
+    <div class="col-md-3 Seller-Rating">
+        <div class="Rating">Rating:  </div>
+    </div>
+    <div class="col-md-6">
+        <hr/>
+    </div>
+    <div class="col-md-5 col-md-offset-1">
+        <p><span style="font-size:24px">Price: </span><span style="font-size:32px">$@Model.CurrentListing.price</span>  </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Description:</h2>
+        <p>@Model.CurrentListing.description</p>
+    </div>
+
+    <div class="col-md-12">
+        <h2>Contact Info:</h2>
+        <p>Model.CurrentListing.ContactInfo</p>
+    </div>
+</div>
+        <script>
+            $(document).ready(function () {
+                $('div.Rating').raty({
+                    readOnly: true,
+                    score: 5,
+                    path: "../bower_components/raty/lib/images"
+                });
+            });
+        </script>
 

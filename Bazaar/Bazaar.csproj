@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Glimpse.Ado, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Glimpse.Ado.1.7.3\lib\net45\Glimpse.Ado.dll</HintPath>
     </Reference>
@@ -59,9 +62,6 @@
     </Reference>
     <Reference Include="Glimpse.Mvc5, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Glimpse.Mvc5.1.5.3\lib\net45\Glimpse.Mvc5.dll</HintPath>
-    </Reference>
-    <Reference Include="i4o">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Aaron Erickson\i4oSetup\i4o.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -120,13 +120,8 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="WebGrease">
-      <Private>True</Private>
-      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
-    </Reference>
-    <Reference Include="Antlr3.Runtime">
-      <Private>True</Private>
-      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -214,33 +209,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201705252010113_initial.cs" />
-    <Compile Include="Migrations\201705252010113_initial.Designer.cs">
-      <DependentUpon>201705252010113_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705282332144_v1.cs" />
-    <Compile Include="Migrations\201705282332144_v1.Designer.cs">
-      <DependentUpon>201705282332144_v1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705282353555_v2.cs" />
-    <Compile Include="Migrations\201705282353555_v2.Designer.cs">
-      <DependentUpon>201705282353555_v2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705290009228_v3.cs" />
-    <Compile Include="Migrations\201705290009228_v3.Designer.cs">
-      <DependentUpon>201705290009228_v3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705290038395_v4.cs" />
-    <Compile Include="Migrations\201705290038395_v4.Designer.cs">
-      <DependentUpon>201705290038395_v4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705292249484_v5.cs" />
-    <Compile Include="Migrations\201705292249484_v5.Designer.cs">
-      <DependentUpon>201705292249484_v5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705310337205_v6.cs" />
-    <Compile Include="Migrations\201705310337205_v6.Designer.cs">
-      <DependentUpon>201705310337205_v6.cs</DependentUpon>
+    <Compile Include="Migrations\201706011944240_v1.cs" />
+    <Compile Include="Migrations\201706011944240_v1.Designer.cs">
+      <DependentUpon>201706011944240_v1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels\ExternalLoginConfirmationViewModel.cs" />
@@ -290,11 +261,21 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="bower.json" />
+    <Content Include=".bin\node.cmd" />
+    <Content Include=".bin\git.cmd" />
+    <Content Include=".bin\bower.cmd" />
+    <Content Include="README.MD" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -355,29 +336,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201705252010113_initial.resx">
-      <DependentUpon>201705252010113_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705282332144_v1.resx">
-      <DependentUpon>201705282332144_v1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705282353555_v2.resx">
-      <DependentUpon>201705282353555_v2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705290009228_v3.resx">
-      <DependentUpon>201705290009228_v3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705290038395_v4.resx">
-      <DependentUpon>201705290038395_v4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705292249484_v5.resx">
-      <DependentUpon>201705292249484_v5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705310337205_v6.resx">
-      <DependentUpon>201705310337205_v6.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706011944240_v1.resx">
+      <DependentUpon>201706011944240_v1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

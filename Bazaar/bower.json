@@ -1,0 +1,8 @@
+{
+  "name": "bazaar",
+  "private": true,
+  "dependencies": {
+    "jquery": "2.2.3",
+    "raty": "v2.7.1"
+  }
+}

@@ -16,6 +16,8 @@
 
 </style>
 <h2>@ViewBag.Title.</h2>
+ @if (!Request.IsAuthenticated)
+ { <h3>Log in for more accurate location data</h3>}
 @{var i = 0;}
 <div class="row">
     @if (Model.Listings != null)

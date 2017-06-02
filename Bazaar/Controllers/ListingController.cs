@@ -74,6 +74,7 @@ namespace Bazaar.Controllers
         [AllowAnonymous]
         public ActionResult Browse(string Category, int? distance, int? page)
         {
+
             ViewData["Type"] = "Browse";
             if (Request.QueryString["page"] == null) page = 1;
             if (Request.QueryString["distance"] == null) distance = 5;
@@ -87,16 +88,26 @@ namespace Bazaar.Controllers
                 model.CurrentPage = (int)page;
                 model.Distance = (int)distance;
                 model.Category = Category;
-               
 
-                //figURE out max degrees to find
+
+                //set a default location if not logged in
+                if(!Request.IsAuthenticated)
+                {
+                    var defaultZip = context.ZipCodes.Find("89128");
+                    userLat = (decimal)defaultZip.Latitude;
+                    userLong = (decimal)defaultZip.Longitude;
+                    distance = 3000;
+
+                }
+
+                //max Distance to find
                 Decimal DeltaDegrees = System.Convert.ToDecimal(distance / 69.0);
                 var FilteredZipCodes = from z in context.ZipCodes
                                        where (z.Latitude >= userLat - DeltaDegrees && z.Latitude <= userLat + DeltaDegrees &&
                                        z.Longitude >= userLong - DeltaDegrees && z.Longitude <= userLong + DeltaDegrees)
                                        select z;
                 MaxPagesRaw = (from l in context.Listings
-                                  where (FilteredZipCodes.Select(z => z.Zipcode).Contains(l.OwnerZipcode) && (l.category == Category || Category == "All"))
+                                  where (FilteredZipCodes.Select(z => z.Zipcode).Contains(l.OwnerZipcode) && (l.category == Category || Category == "All") && !l.completed)
                                   select l).OrderBy(x => x.name).Count() / (float)RecordsPerPage;
 
                 model.MaxPages = (int)Math.Ceiling(MaxPagesRaw);
@@ -109,7 +120,7 @@ namespace Bazaar.Controllers
                     }
 
                     var FilteredListing = (from l in context.Listings
-                                           where (FilteredZipCodes.Select(z => z.Zipcode).Contains(l.OwnerZipcode) && (l.category == Category || Category == "All"))
+                                           where (FilteredZipCodes.Select(z => z.Zipcode).Contains(l.OwnerZipcode) && (l.category == Category || Category == "All") && !l.completed)
                                            select l).OrderBy(x => x.name).Skip(((int)page - 1) * RecordsPerPage).Take(RecordsPerPage);
 
                     model.Listings = FilteredListing.ToList<Listing>();
@@ -175,15 +186,16 @@ namespace Bazaar.Controllers
 
         [HttpGet]
         //Get: /Listings/Edit
-        public ActionResult Edit(int ListingId, string returnUrl)
+        public ActionResult Edit(int? ListingId, string returnUrl)
         {
+            if (ListingId== null) return RedirectToAction("Index", "Home", null);
             var decodeUrl = HttpUtility.UrlDecode(returnUrl);
             ViewBag.ReturnUrl = decodeUrl;
             var model = new EditListingViewModel();
             using (var context = new ApplicationDbContext())
             {
                 var ListingToEdit = context.Listings.Find(ListingId);
-                model.ListingId = ListingId;
+                model.ListingId = (int)ListingId;
                 model.CategoryType = ListingToEdit.category;
                 model.description = ListingToEdit.description;
                 model.iurl = ListingToEdit.image;
@@ -193,6 +205,7 @@ namespace Bazaar.Controllers
                 model.BuyerUserName = ListingToEdit.BuyerUserName;
                 model.Completed = ListingToEdit.completed;
                 model.OwnerZipCode= ListingToEdit.OwnerZipcode;
+                model.Completed = ListingToEdit.completed;
             }
             return View(model);
         }
@@ -210,6 +223,7 @@ namespace Bazaar.Controllers
                 ListingToEdit.image= model.iurl;
                 ListingToEdit.name= model.Name;
                 ListingToEdit.price= model.price;
+                ListingToEdit.completed = model.Completed;
                 context.SaveChanges();
             }
             return Redirect(returnUrl);
