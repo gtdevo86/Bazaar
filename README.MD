@@ -9,11 +9,11 @@
 ---
 
 ### TODO lIST:
-- [ ] Ability to Search Database for near items
-- [ ] Give Users a rating after buying their item.
-- [ ] View users profile to see what items they have for sale.
-- [ ] Map view of items for sale
-- [ ] Sort Listings by different Criteria
-- [ ] Browse Listings by different Categories.
-- [ ] Upload a custom image of the item your sellings.
-- [ ] Admin Accounts who can edit any listing.
+- [ ] Ability to Search for items near you
+- [ ] Ability to give other users a rating.
+- [ ] Ability see all items a particular user is selling.
+- [ ] Map out all the items near you using Map api.
+- [ ] Sort Listings by  Criteria
+- [ ] Browse Listings by Categories.
+- [ ] Upload a custom images for listings.
+- [ ] Admin accounts with the ability to edit any listing.
