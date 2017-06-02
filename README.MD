@@ -1,14 +1,14 @@
-|#Bazaar
+# Bazaar
 
-#Bazaar is a website developed in ASP.NET MVC 5 using c#
+## Bazaar is a website developed in ASP.NET MVC 5 using c#
 
-##Features:
+### Features:
 * Log in using the Identiy Framework
 * Add/Delete/Edit listings
 * View listings near you
 ---
 
-##TODO lIST:
+### TODO lIST:
 - [ ] Ability to Search Database for near items
 - [ ] Give Users a rating after buying their item.
 - [ ] View users profile to see what items they have for sale.
