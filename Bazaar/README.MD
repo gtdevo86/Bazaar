@@ -11,9 +11,9 @@
 ##TODO lIST:
 - [ ] Ability to Search Database for near items
 - [ ] Give Users a rating after buying their item.
-- [ ]View users profile to see what items they have for sale.
+- [ ] View users profile to see what items they have for sale.
 - [ ] Map view of items for sale
-- [ ]Sort Listings by different Criteria
+- [ ] Sort Listings by different Criteria
 - [ ] Browse Listings by different Categories.
-- [ ]Upload a custom image of the item your sellings.
-- [ ]Admin Accounts who can edit any listing.
+- [ ] Upload a custom image of the item your sellings.
+- [ ] Admin Accounts who can edit any listing.
