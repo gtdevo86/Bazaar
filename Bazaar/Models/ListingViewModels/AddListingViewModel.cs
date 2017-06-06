@@ -29,8 +29,6 @@ namespace Bazaar.Models.ListingViewModels
         [Display(Name = "Upload an image")]
         public string iurl { get; set; }
 
- 
-        //
         public class Category
         {
             public int CategoryId { get; set; }
