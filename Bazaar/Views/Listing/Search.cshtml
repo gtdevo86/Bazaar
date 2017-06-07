@@ -2,4 +2,42 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using Bazaar.Models.ListingViewModels
+@model SearchListingViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Search Listings";
+}
+
+<style>
+    body {
+        padding-bottom: 100px;
+    }
+</style>
+<h2>@ViewBag.Title.</h2>
+@if (!Request.IsAuthenticated)
+{ <h3>Log in for more accurate location data</h3>}
+@{var i = 0;}
+<div class="row">
+    @if (Model.Listings != null)
+    {
+        foreach (var listing in Model.Listings)
+        {
+            i++;
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="thumbnail" style="width:80%">
+                    <a href="@Url.Action("View", "Listing", new { ListingId = listing.ListingId})">
+                        <img src="~/Content/images/Placeholder.png" alt="Lights" style="width:100%">
+                        <div class="caption">
+                            <p>@listing.name</p>
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    }
+</div>
+@{Html.RenderPartial("_Pageinator", Model, ViewData);}
+
 

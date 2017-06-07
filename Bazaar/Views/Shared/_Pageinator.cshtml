@@ -8,6 +8,11 @@
     {
         ActionName = "Manage";
     }
+    else if (ViewData["Type"].ToString() == "Search")
+
+    {
+        ActionName = "Search";
+    }
     @{
             var StartPage = 0;
             var EndPage = 0;
@@ -47,6 +52,11 @@
                 {
                     @Html.ActionLink("1", ActionName, ControllerName, new {page = 1 }, new { @class = "PageText" })
                 }
+                else if (ViewData["Type"].ToString() == "Search")
+                {
+                    @Html.ActionLink("1", ActionName, ControllerName, new { SearchTerm = Model.SearchTerms, Category = Model.Category, Distance = Model.Distance, page = 1 }, new { @class = "PageText" })
+                }
+
             </l1>
 
         }
@@ -68,8 +78,12 @@
                     @Html.ActionLink(@x.ToString(), ActionName, ControllerName, new { Category = Model.Category, Distance = Model.Distance, page = x }, new { @class = "PageText" })
                 }
                 else if (ViewData["Type"].ToString() == "Manage")
-                {
+                   {
                     @Html.ActionLink(@x.ToString(), ActionName, ControllerName, new { page = x }, new { @class = "PageText" })
+                }
+                else if (ViewData["Type"].ToString() == "Search")
+                {
+                    @Html.ActionLink(@x.ToString(), ActionName, ControllerName, new { SearchTerm = Model.SearchTerms, Category = Model.Category, Distance = Model.Distance, page = x }, new { @class = "PageText" })
                 }
             }
 
@@ -84,9 +98,13 @@
             {
                 @Html.ActionLink((string)Model.MaxPages, ActionName, ControllerName, new { Category = Model.Category, Distance = Model.Distance, page = Model.MaxPages }, new { @class = "PageText" })
             }
-            else if (ViewData["Type"].ToString() == "Manage")
+            else if (ViewData["Type"].ToString() == "Manage" )
             {
                 @Html.ActionLink((string)Model.MaxPages, ActionName, ControllerName, new { page = Model.MaxPages }, new { @class = "PageText" })
+            }
+            else if (ViewData["Type"].ToString() == "Search")
+            {
+                @Html.ActionLink((string)Model.MaxPages, ActionName, ControllerName, new { SearchTerm = Model.SearchTerms, Category = Model.Category, Distance = Model.Distance, page = Model.MaxPages }, new { @class = "PageText" })
             }
         }
     }

@@ -154,7 +154,7 @@ namespace Bazaar.Controllers
             float MaxPagesRaw;
             using (var context = new ApplicationDbContext())
             {
-              
+                //Placeholder until dynamic html implementation
                 model.CurrentPage = (int)page;
                 model.Distance = (int)distance;
                 model.Category = Category;
@@ -367,6 +367,19 @@ namespace Bazaar.Controllers
             return Redirect(ViewData["ReturnUrl"].ToString());
         }
 
+        // Post: /Listing/Search
+        /// <summary>
+        /// Grabs the post data from the form and returns it to the get method
+        /// </summary>
+        /// <param name="model">The form data to search</param>
+        /// <returns>redirects to the get method with the form data</returns>
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Search(SearchListingViewModel model)
+        {
+            return RedirectToRoute(new { Searchterm = model.SearchTerms, Category =  model.Category, distance = 5, page = 1 });
+        }
+
         // GET: /Listing/Search
         /// <summary>
         /// This allows for annonymous users, If so give each the claims a default value
@@ -385,15 +398,43 @@ namespace Bazaar.Controllers
         /// <returns>view model of the filtered listings</returns>
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult Search(String Searchterm, string Category, int distance, int page)
+        public ActionResult Search(String Searchterm, string Category, int? distance, int? page)
         {
-            var model = new BrowseListingViewModel();
+            ViewData["Type"] = "Search";
+            if (Searchterm == "") return RedirectToAction("Index", "Home", null);
+            if (Category == "") Category = "All";
+            if(page == null) page = 1;
+            if (distance == null) distance = 5;
+
+
+            var model = new SearchListingViewModel();
             char[] delimiterChars = { ' ', ',', '.', ':', '\t' };
             string[] searchTerms = Searchterm.Split(delimiterChars);
-
             float MaxPagesRaw;
+
+            //Placeholder until dynamic html implementation
+            model.SearchTerms = Searchterm;
+            model.Distance = (int)distance;
+            model.CurrentPage = (int)page;
+            model.Category = Category;
+
+      
             using (var context = new ApplicationDbContext())
             {
+
+
+                //set a default location if not logged in
+                if (!Request.IsAuthenticated)
+                {
+                    var defaultZip = context.ZipCodes.Find("89128");
+                    userLat = (decimal)defaultZip.Latitude;
+                    userLong = (decimal)defaultZip.Longitude;
+                    distance = 3000;
+
+                }
+
+
+
                 //fige out max degrees to find
                 Decimal DeltaDegrees = System.Convert.ToDecimal(distance / 69.0);
                 var FilteredZipCodes = from z in context.ZipCodes
@@ -414,11 +455,15 @@ namespace Bazaar.Controllers
                 var FilteredListing = FilterByLocation.Search(x => x.name, x => x.description)
                                     .Containing(searchTerms)
                                     .ToRanked()
-                                    .OrderByDescending(r => r.Hits)
-                                    .Skip((page - 1) * RecordsPerPage)
+                                     .OrderByDescending(r => r.Hits)
+                                     .ThenBy(r => r.Item.name)
+                                     .ThenBy(r => r.Item.ListingId)
+                                     .Select(x => x.Item)
+                                    .Skip(((int)page - 1) * RecordsPerPage)
                                     .Take(RecordsPerPage)
+
                                     .ToList();
-                model.Listings = (IEnumerable<Listing>)FilteredListing;
+                model.Listings = FilteredListing;
             }
             return View(model);
         }

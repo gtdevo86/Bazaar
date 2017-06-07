@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bazaar.Models.ListingViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,8 @@ namespace Bazaar.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var model = new SearchListingViewModel();
+            return View(model);
         }
 
         public ActionResult About()
