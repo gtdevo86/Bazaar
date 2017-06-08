@@ -6,7 +6,7 @@
 * Log in using the Identiy Framework
 * Add/Delete/Edit listings
 * View listings near you
-* Search for listings
+* Search listings
 ---
 
 ### TODO lIST:
@@ -15,6 +15,5 @@
 - [ ] Map out all the items near you using Map api.
 - [ ] Sort Listings by  Criteria
 - [ ] Browse Listings by Categories.
-- [ ] Add Categories When Searching
 - [ ] Upload a custom images for listings.
 - [ ] Admin accounts with the ability to edit any listing.
