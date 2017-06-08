@@ -54,7 +54,7 @@
                 }
                 else if (ViewData["Type"].ToString() == "Search")
                 {
-                    @Html.ActionLink("1", ActionName, ControllerName, new { SearchTerm = Model.SearchTerms, Category = Model.Category, Distance = Model.Distance, page = 1 }, new { @class = "PageText" })
+                    @Html.ActionLink("1", ActionName, ControllerName, new { SearchTerm = Model.SearchTerms, Category = Model.CategoryType, Distance = Model.Distance, page = 1 }, new { @class = "PageText" })
                 }
 
             </l1>
@@ -83,7 +83,7 @@
                 }
                 else if (ViewData["Type"].ToString() == "Search")
                 {
-                    @Html.ActionLink(@x.ToString(), ActionName, ControllerName, new { SearchTerm = Model.SearchTerms, Category = Model.Category, Distance = Model.Distance, page = x }, new { @class = "PageText" })
+                    @Html.ActionLink(@x.ToString(), ActionName, ControllerName, new { SearchTerm = Model.SearchTerms, Category = Model.CategoryType, Distance = Model.Distance, page = x }, new { @class = "PageText" })
                 }
             }
 
@@ -104,7 +104,7 @@
             }
             else if (ViewData["Type"].ToString() == "Search")
             {
-                @Html.ActionLink((string)Model.MaxPages, ActionName, ControllerName, new { SearchTerm = Model.SearchTerms, Category = Model.Category, Distance = Model.Distance, page = Model.MaxPages }, new { @class = "PageText" })
+                @Html.ActionLink((string)Model.MaxPages, ActionName, ControllerName, new { SearchTerm = Model.SearchTerms, Category = Model.CategoryType, Distance = Model.Distance, page = Model.MaxPages }, new { @class = "PageText" })
             }
         }
     }

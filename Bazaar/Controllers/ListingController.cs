@@ -55,7 +55,7 @@ namespace Bazaar.Controllers
         /// <summary>
         /// The Placeholder until I allow the user to manually upload a photo
         /// </summary>
-        public string PlaceHolder = "~/Content/images/Placeholder.png";
+        public string PlaceHolder = "/Content/images/Placeholder.png";
 
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace Bazaar.Controllers
 
                 using (var context = new ApplicationDbContext())
                 { 
-                    var result = context.Listings.Add(new Listing(model.Name, model.price, model.description, PlaceHolder, model.CategoryType, User.Identity.GetUserId(),userZipcode));
+                    var result = context.Listings.Add(new Listing(model.Name, model.price, model.description, PlaceHolder, model.CategoryType, userName,userZipcode));
                     context.SaveChanges();
                 }
                 return RedirectToAction("Index","Home",null);
@@ -377,7 +377,7 @@ namespace Bazaar.Controllers
         [AllowAnonymous]
         public ActionResult Search(SearchListingViewModel model)
         {
-            return RedirectToRoute(new { Searchterm = model.SearchTerms, Category =  model.Category, distance = 5, page = 1 });
+            return RedirectToRoute(new { Searchterm = model.SearchTerms, Category =  model.CategoryType, distance = 5, page = 1 });
         }
 
         // GET: /Listing/Search
@@ -416,7 +416,7 @@ namespace Bazaar.Controllers
             model.SearchTerms = Searchterm;
             model.Distance = (int)distance;
             model.CurrentPage = (int)page;
-            model.Category = Category;
+            model.CategoryType = Category;
 
       
             using (var context = new ApplicationDbContext())
@@ -449,10 +449,8 @@ namespace Bazaar.Controllers
 
                 model.MaxPages = (int)Math.Ceiling(MaxPagesRaw);
 
-                var FilterByLocation = from l in context.Listings
-                                        where (FilteredZipCodes.Select(z => z.Zipcode).Contains(l.OwnerZipcode) && (l.category == Category || Category == "All") && !l.completed)
-                                        select l;
-                var FilteredListing = FilterByLocation.Search(x => x.name, x => x.description)
+                var FilteredListing = context.Listings.Where(l => FilteredZipCodes.Select(z => z.Zipcode).Contains(l.OwnerZipcode) && (l.category == Category || Category == "All") && !l.completed)
+                                     .Search(x => x.name, x => x.description)
                                     .Containing(searchTerms)
                                     .ToRanked()
                                      .OrderByDescending(r => r.Hits)

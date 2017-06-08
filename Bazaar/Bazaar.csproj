@@ -268,7 +268,6 @@
     <Content Include=".bin\node.cmd" />
     <Content Include=".bin\git.cmd" />
     <Content Include=".bin\bower.cmd" />
-    <Content Include="README.MD" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

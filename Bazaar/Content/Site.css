@@ -33,22 +33,41 @@ textarea {
 }
 /*Responsive Delete icon getes bigger on smaller screens*/
 /*screen-xs*/
-@media screen and (max-width: 480px) {
+
+@media screen and (min-width: 480px) {
     .DeleteIcon {
         font-size: 600%;
+    }
+    .search .textbox {
+        max-width: 375px;
     }
 }
 
 /*screen-sm*/
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 768px) {
     .DeleteIcon {
         font-size: 425%;
     }
+    .search .textbox {
+        max-width: 375px;
+    }
 }
 /*screen-md+*/
-@media screen and (Min-width: 768px) {
+@media screen and (min-width: 992px) {
     .DeleteIcon {
         font-size: 250%;
+    }
+    .search .textbox {
+        max-width: 557px;
+    }
+}
+@media screen and (min-width: 1200px) {
+    .DeleteIcon {
+        font-size: 250%;
+    }
+
+    .search .textbox {
+        max-width: 725px;
     }
 }
 
@@ -91,8 +110,10 @@ li a.top-Action-links:link {
     font-size: 20px;
 }
 
-.search .form-control {
-    max-width: none;
+
+.search .category {
+    width: 150px;
+    height: 46px;
 }
 
 .search-well {

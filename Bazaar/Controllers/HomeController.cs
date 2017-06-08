@@ -12,6 +12,7 @@ namespace Bazaar.Controllers
         public ActionResult Index()
         {
             var model = new SearchListingViewModel();
+            model.CategoryType = "All";
             return View(model);
         }
 
