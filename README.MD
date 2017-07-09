@@ -6,10 +6,10 @@
 * Log in using the Identiy Framework
 * Add/Delete/Edit listings
 * View listings near you
+* Search listings
 ---
 
 ### TODO lIST:
-- [ ] Ability to Search for items near you
 - [ ] Ability to give other users a rating.
 - [ ] Ability see all items a particular user is selling.
 - [ ] Map out all the items near you using Map api.
