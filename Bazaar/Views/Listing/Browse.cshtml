@@ -2,9 +2,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using PerpetuumSoft.Knockout
 @using Bazaar.Models.ListingViewModels
 @model BrowseListingViewModel
 @{
+    var ko = Html.CreateKnockoutContext();
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Browse Listings";
 }
@@ -15,28 +17,80 @@
     }
 
 </style>
+<script src="~/bower_components/raty/lib/jquery.raty.js"></script>
 <h2>@ViewBag.Title.</h2>
- @if (!Request.IsAuthenticated)
- { <h3>Log in for more accurate location data</h3>}
-@{var i = 0;}
-<div class="row">
-    @if (Model.Listings != null)
-    {
-        foreach (var listing in Model.Listings)
-        {
-            i++;
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="thumbnail" style="width:80%">
-                    <a href="@Url.Action("View", "Listing", new { ListingId = listing.ListingId})">
-                        <img src="~/Content/images/Placeholder.png" alt="Lights" style="width:100%">
-                        <div class="caption">
-                            <p>@listing.name</p>
+@if (!Request.IsAuthenticated)
+{ <h3>Log in for more accurate location data</h3>}
 
-                        </div>
-                    </a>
-                </div>
-            </div>
-        }
-    }
+@using (Html.BeginForm("Browse", "Listing", FormMethod.Post, new { id = "distanceForm", name = "distanceForm" }))
+{
+    @Html.Label("Distance:");
+    //@Html.LabelFor(m => m.Distance, new { @class = "control-label" })
+    @Html.DropDownListFor(m => m.Distance, new SelectList(Model.DistanceDropDown, "Value", "Text"), new { @class = "form-control", onchange = "submit()" })
+    <input name="Category" type="hidden" value=@Model.Category />
+    <input name="CurrentPage" type="hidden" value=@Model.CurrentPage />
+}
+<div id="content"></div>
+<br />
+<div class="navbar navbar-inverse navbar-fixed-left" style="background-color:slategray">
+    <ul class="nav navbar-nav">
+
+        <li>@Html.ActionLink("All", "Browse", "Listing",new {category = "All", distance = Model.Distance, Page = 1 }, new { @class = "left-link" })</li>
+        <li>@Html.ActionLink("Auto Parts", "Browse", "Listing", new { category = "Auto Parts", distance = Model.Distance, Page = 1 }, new { @class = "left-link" })</li>
+        <li>@Html.ActionLink("Books", "Browse", "Listing", new { category = "Books", distance = Model.Distance, Page = 1 }, new { @class = "left-link" })</li>
+        <li>@Html.ActionLink("Clothes", "Browse", "Listing", new { category = "Clothes", distance = Model.Distance, Page = 1 }, new { @class = "left-link" })</li>
+        <li>@Html.ActionLink("Computers", "Browse", "Listing", new { category = "Computers", distance = Model.Distance, Page = 1 }, new { @class = "left-link" })</li>
+        <li>@Html.ActionLink("DVDs", "Browse", "Listing", new { category = "DVDs", distance = Model.Distance, Page = 1 }, new { @class = "left-link" })</li>
+        <li>@Html.ActionLink("Electronics", "Browse", "Listing", new { category = "Electronics", distance = Model.Distance, Page = 1 }, new { @class = "left-link" })</li>
+        <li>@Html.ActionLink("Furniture", "Browse", "Listing", new { category = "Furniture", distance = Model.Distance, Page = 1 }, new { @class = "left-link" })</li>
+        <li>@Html.ActionLink("Jewelry", "Browse", "Listing", new { category = "Jewelry", distance = Model.Distance, Page = 1 }, new { @class = "left-link" })</li> 
+        <li>@Html.ActionLink("Kitchen Appliances", "Browse", "Listing",new {category = "Kitchen Appliances", distance = Model.Distance, Page = 1 }, new { @class = "left-link" })</li>
+        <li>@Html.ActionLink("Tools", "Browse", "Listing", new { category = "All", distance = Model.Distance, Page = 1 }, new { @class = "left-link" })</li>
+        <li>@Html.ActionLink("Toys", "Browse", "Listing", new { category = "All", distance = Model.Distance, Page = 1 }, new { @class = "left-link" })</li>
+        <li>@Html.ActionLink("TVs", "Browse", "Listing", new { category = "All", distance = Model.Distance, Page = 1 }, new { @class = "left-link" })</li>
+        <li>@Html.ActionLink("Video Games", "Browse", "Listing", new { category = "All", distance = Model.Distance, Page = 1 }, new { @class = "left-link" })</li>
+    </ul>
 </div>
-@{Html.RenderPartial("_Pageinator", Model,ViewData);}
+        @{var i = 0;}
+        @if (Model.Listings != null)
+        {
+            <div class="col-md-offset-2 col-xs-offset-4">
+            @foreach (var listing in Model.Listings)
+            {
+                i++;
+                <div class="col-xs-8 col-sm-8 col-md-4 bottom-buffer">
+                    <div class=" img-thumbnail" style="width:275px;height:300px">
+                        <a href="@Url.Action("View", "Listing", new { ListingId = listing.ListingId })">
+                            @{ string imgstr = "../" + @listing.Image;}
+
+                            <img src=@imgstr class="browse-image" />
+                            <div class="Name"><p>@listing.Name</p></div>
+                            <div class="browse-rating Rating"></div>
+                            <div class="browse-price Price"><p>@String.Format("{0:C2}", @listing.Price) </p></div>
+
+                        </a>
+                    </div>
+                </div>
+           }
+           </div>
+       }
+@if (i == 0)
+{
+    <div class="col-md-offset-2 col-xs-offset-4">
+        <ul style="color:red"><li><b>No Items found, Please broaden your search.</b></li></ul>
+     </div>
+ }
+
+<script>
+    $(document).ready(function () {
+        $('div.Rating').raty({
+            readOnly: true,
+            score: 5,
+            path: "../bower_components/raty/lib/images"
+        });
+    });
+</script>
+
+
+        @{Html.RenderPartial("_Pageinator", Model, ViewData);
+        }

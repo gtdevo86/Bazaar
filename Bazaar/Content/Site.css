@@ -4,7 +4,8 @@
 body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-color:bisque; /*#074671;*/
+    background-color: white; /*#074671;*/
+    /*background-color:bisque;*/
     color: Black;
 }
 
@@ -73,21 +74,14 @@ textarea {
 
 /*Footer settings*/
 .footer.navbar-fixed-bottom {
-    background-color:bisque;
+    background-color:white;
+    /*background-color:bisque;*/
     border: 0px;
-    color:black;
-}
-
-/*Top NavBar settings*/
-.navbar-header a.top-Action-links,
-.navbar-header a.top-Action-links:visited,
-li a.top-Action-links:visited,
-li a.top-Action-links:link {
     color: black;
 }
 
 .navbar-fixed-top {
-    background: rgba(0, 0, 0,.4);
+    /*background: rgba(0, 0, 0,.4)*/
     border: 0px;
 }
 
@@ -184,7 +178,7 @@ li a.top-Action-links:link {
 }
 .paginator .PageText {
     font-size: 30px;
-    color: white;
+    color: blue;
 }
 .paginator .currentPage {
     font-size: 30px;
@@ -195,3 +189,69 @@ li a.top-Action-links:link {
     right: 0px;
     top: 0px;
 }
+/*thumbnail settings*/
+.thumbnail {
+    border: 0 none;
+    box-shadow: none;
+}
+
+.bottom-buffer {
+    margin-bottom: 70px;
+}
+
+/*Settings for browse Images*/
+.browse-image {
+    max-width:240px;
+    max-height:200px;
+    display: block;
+    margin-left: auto;
+    margin-right:auto;
+    margin-top:25px;
+    margin-bottom:auto;
+}
+
+.Name{
+    position: absolute;
+    right:auto;
+    left:auto;
+    bottom: 40px;
+}
+.browse-rating {
+        position: absolute;
+        bottom: 32px;
+    }
+
+.browse-price {
+     position: absolute;
+     bottom: 0px;
+    }
+/*Delete icon settings*/
+.DeleteIcon {
+    position: absolute;
+    bottom:0px;
+    right:130px;
+}
+
+.navbar-fixed-left {
+    width: 140px;
+    position: fixed;
+    border-radius: 0;
+    height: 730px;
+}
+/*Browse navbar settings*/
+
+.navbar-fixed-left .navbar-nav > li {
+        float: none; /* Cancel default li float: left */
+        width: 139px;
+    }
+
+.navbar-fixed-left + .container {
+        padding-left: 160px;
+    }
+
+.navbar-fixed-left a.left-link,
+.navbar-fixed-left a.left-link:visited,
+li a.left-link:visited,
+li a.left-link:link {
+        color: black;
+    }

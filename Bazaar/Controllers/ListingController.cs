@@ -13,6 +13,8 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using NinjaNye.SearchExtensions;
+using System.Web.UI;
+
 namespace Bazaar.Controllers
 {
     /// <summary>
@@ -49,7 +51,7 @@ namespace Bazaar.Controllers
         /// currently hardcoded in
         /// TODO: Eventually change this to a dropdown and allow the user to pick a manual record per page
         /// </summary>
-        private int RecordsPerPage = 16;
+        private int RecordsPerPage = 15;
 
 
         /// <summary>
@@ -117,8 +119,8 @@ namespace Bazaar.Controllers
                 { 
                     var result = context.Listings.Add(new Listing(model.Name, model.price, model.description, PlaceHolder, model.CategoryType, userName,userZipcode));
                     context.SaveChanges();
+                    ViewBag.Edited = true;
                 }
-                return RedirectToAction("Index","Home",null);
             }
             return View(model);
         }
@@ -177,8 +179,8 @@ namespace Bazaar.Controllers
                                        z.Longitude >= userLong - DeltaDegrees && z.Longitude <= userLong + DeltaDegrees)
                                        select z;
                 MaxPagesRaw = (from l in context.Listings
-                                  where (FilteredZipCodes.Select(z => z.Zipcode).Contains(l.OwnerZipcode) && (l.category == Category || Category == "All") && !l.completed)
-                                  select l).OrderBy(x => x.name).Count() / (float)RecordsPerPage;
+                                  where (FilteredZipCodes.Select(z => z.Zipcode).Contains(l.OwnerZipcode) && (l.Category == Category || Category == "All") && !l.Completed)
+                                  select l).OrderBy(x => x.Name).Count() / (float)RecordsPerPage;
 
                 model.MaxPages = (int)Math.Ceiling(MaxPagesRaw);
                 if (model.MaxPages > 0)
@@ -190,18 +192,20 @@ namespace Bazaar.Controllers
                     }
 
                     var FilteredListing = (from l in context.Listings
-                                           where (FilteredZipCodes.Select(z => z.Zipcode).Contains(l.OwnerZipcode) && (l.category == Category || Category == "All") && !l.completed)
-                                           select l).OrderBy(x => x.name).Skip(((int)page - 1) * RecordsPerPage).Take(RecordsPerPage);
+                                           where (FilteredZipCodes.Select(z => z.Zipcode).Contains(l.OwnerZipcode) && (l.Category == Category || Category == "All") && !l.Completed)
+                                           select l).OrderBy(x => x.Name).Skip(((int)page - 1) * RecordsPerPage).Take(RecordsPerPage);
 
                     model.Listings = FilteredListing.ToList<Listing>();
                 }
             }
-
-            
-            
             return View(model);
         }
-
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Browse(BrowseListingViewModel model)
+        {
+            return RedirectToAction("Browse", "Listing",new  {  Category = model.Category, distance = model.Distance,page =model.CurrentPage});
+        }
         // GET: /Listing/Manage
         /// <summary>
         /// Shows every listing that the current owner has created
@@ -216,6 +220,7 @@ namespace Bazaar.Controllers
         [HttpGet]
         public ActionResult Manage(int? page)
         {
+            ViewBag.Edited = TempData["Edited"];
             ViewData["Type"] = "Manage";
             if (Request.QueryString["page"] == null) return RedirectToAction("Index","Home",null);
             var model = new ManageListingViewModel();
@@ -286,21 +291,22 @@ namespace Bazaar.Controllers
             if (ListingId== null) return RedirectToAction("Index", "Home", null);
             var decodeUrl = HttpUtility.UrlDecode(returnUrl);
             ViewBag.ReturnUrl = decodeUrl;
+            ViewBag.Edited = true;
             var model = new EditListingViewModel();
             using (var context = new ApplicationDbContext())
             {
                 var ListingToEdit = context.Listings.Find(ListingId);
                 model.ListingId = (int)ListingId;
-                model.CategoryType = ListingToEdit.category;
-                model.description = ListingToEdit.description;
-                model.iurl = ListingToEdit.image;
-                model.Name = ListingToEdit.name;
-                model.price = ListingToEdit.price;
+                model.CategoryType = ListingToEdit.Category;
+                model.description = ListingToEdit.Description;
+                model.iurl = ListingToEdit.Image;
+                model.Name = ListingToEdit.Name;
+                model.price = ListingToEdit.Price;
                 model.OwnerUserName = ListingToEdit.OwnerUserName;
                 model.BuyerUserName = ListingToEdit.BuyerUserName;
-                model.Completed = ListingToEdit.completed;
+                model.Completed = ListingToEdit.Completed;
                 model.OwnerZipCode= ListingToEdit.OwnerZipcode;
-                model.Completed = ListingToEdit.completed;
+                model.Completed = ListingToEdit.Completed;
             }
             return View(model);
         }
@@ -311,24 +317,32 @@ namespace Bazaar.Controllers
         /// </summary>
         /// <param name="model">The viewmodel containing the values edited by the form</param>
         /// <param name="returnUrl">The return URL.</param>
-        /// <returns></returns>
+        /// <returns>redicts if valid else show validation errors</returns>
         [HttpPost]
         //Post: /Listings/Edit
         public ActionResult Edit(EditListingViewModel model, string returnUrl)
         {
-            using (var context = new ApplicationDbContext())
+            ViewBag.ReturnUrl = returnUrl;
+            if (ModelState.IsValid)
             {
-                var url2 = ViewBag.ReturnUrl;
-                var ListingToEdit = context.Listings.Find(model.ListingId);
-                ListingToEdit.category= model.CategoryType;
-                ListingToEdit.description = model.description;
-                ListingToEdit.image= model.iurl;
-                ListingToEdit.name= model.Name;
-                ListingToEdit.price= model.price;
-                ListingToEdit.completed = model.Completed;
-                context.SaveChanges();
+                using (var context = new ApplicationDbContext())
+                {
+                    var url2 = ViewBag.ReturnUrl;
+                    var ListingToEdit = context.Listings.Find(model.ListingId);
+                    ListingToEdit.Category = model.CategoryType;
+                    ListingToEdit.Description = model.description;
+                    ListingToEdit.Image = model.iurl;
+                    ListingToEdit.Name = model.Name;
+                    ListingToEdit.Price = model.price;
+                    ListingToEdit.Completed = model.Completed;
+                    context.SaveChanges();
+                    TempData["Edited"] = true;
+                    return Redirect(returnUrl);
+                }
             }
-            return Redirect(returnUrl);
+            
+            return View(model);
+            
         }
 
         //Get: /Listings/Delete
@@ -377,7 +391,7 @@ namespace Bazaar.Controllers
         [AllowAnonymous]
         public ActionResult Search(SearchListingViewModel model)
         {
-            return RedirectToRoute(new { Searchterm = model.SearchTerms, Category =  model.CategoryType, distance = 5, page = 1 });
+            return RedirectToRoute(new { Searchterm = model.SearchTerms, Category =  model.CategoryType, distance = model.Distance, page = model.CurrentPage});
         }
 
         // GET: /Listing/Search
@@ -401,24 +415,31 @@ namespace Bazaar.Controllers
         public ActionResult Search(String Searchterm, string Category, int? distance, int? page)
         {
             ViewData["Type"] = "Search";
-            if (Searchterm == "") return RedirectToAction("Index", "Home", null);
+           
             if (Category == "") Category = "All";
             if(page == null) page = 1;
             if (distance == null) distance = 5;
 
 
             var model = new SearchListingViewModel();
-            char[] delimiterChars = { ' ', ',', '.', ':', '\t' };
-            string[] searchTerms = Searchterm.Split(delimiterChars);
+            string[] searchTerms = null;
+            if (Searchterm != null)
+            {
+                char[] delimiterChars = { ' ', ',', '.', ':', '\t' };
+                searchTerms = Searchterm.Split(delimiterChars);
+                model.SearchTerms = Searchterm;
+            }
+           
+          
             float MaxPagesRaw;
 
             //Placeholder until dynamic html implementation
-            model.SearchTerms = Searchterm;
+            
             model.Distance = (int)distance;
             model.CurrentPage = (int)page;
             model.CategoryType = Category;
 
-      
+
             using (var context = new ApplicationDbContext())
             {
 
@@ -442,26 +463,46 @@ namespace Bazaar.Controllers
                                        z.Longitude >= userLong - DeltaDegrees && z.Longitude <= userLong + DeltaDegrees)
                                        select z;
 
-                MaxPagesRaw = context.Listings.Search(x => x.name, x => x.description)
-                                .Containing(searchTerms)
-                                .Where(f => (f.category == Category || Category == "All") && !f.completed)
-                                .Count() / (float)RecordsPerPage; 
+                if (searchTerms != null)
+                {
+                    MaxPagesRaw = context.Listings.Search(x => x.Name, x => x.Description)
+                        .Containing(searchTerms)
+                         .Where(f => (f.Category == Category || Category == "All") && !f.Completed)
+                        .Count() / (float)RecordsPerPage;
 
-                model.MaxPages = (int)Math.Ceiling(MaxPagesRaw);
+                    model.MaxPages = (int)Math.Ceiling(MaxPagesRaw);
+      
+                    var FilteredListing = context.Listings.Where(l => FilteredZipCodes.Select(z => z.Zipcode).Contains(l.OwnerZipcode) && (l.Category == Category || Category == "All") && !l.Completed)
+                                         .Search(x => x.Name, x => x.Description)
+                                        .Containing(searchTerms)
+                                        .ToRanked()
+                                         .OrderByDescending(r => r.Hits)
+                                         .ThenBy(r => r.Item.Name)
+                                         .ThenBy(r => r.Item.ListingId)
+                                         .Select(x => x.Item)
+                                        .Skip(((int)page - 1) * RecordsPerPage)
+                                        .Take(RecordsPerPage)
 
-                var FilteredListing = context.Listings.Where(l => FilteredZipCodes.Select(z => z.Zipcode).Contains(l.OwnerZipcode) && (l.category == Category || Category == "All") && !l.completed)
-                                     .Search(x => x.name, x => x.description)
-                                    .Containing(searchTerms)
-                                    .ToRanked()
-                                     .OrderByDescending(r => r.Hits)
-                                     .ThenBy(r => r.Item.name)
-                                     .ThenBy(r => r.Item.ListingId)
-                                     .Select(x => x.Item)
-                                    .Skip(((int)page - 1) * RecordsPerPage)
-                                    .Take(RecordsPerPage)
+                                        .ToList();
+                    model.Listings = FilteredListing;
+                }
+                else
+                {
+                    MaxPagesRaw = (from l in context.Listings
+                                   where (FilteredZipCodes.Select(z => z.Zipcode).Contains(l.OwnerZipcode) && (l.Category == Category || Category == "All") && !l.Completed)
+                                   select l).OrderBy(x => x.Name).Count() / (float)RecordsPerPage;
 
-                                    .ToList();
-                model.Listings = FilteredListing;
+                    model.MaxPages = (int)Math.Ceiling(MaxPagesRaw);
+
+                    var FilteredListing = context.Listings.Where(l => FilteredZipCodes.Select(z => z.Zipcode).Contains(l.OwnerZipcode) && (l.Category == Category || Category == "All") && !l.Completed)
+                     .OrderBy(r => r.Name)
+                     .ThenBy(r => r.ListingId)
+                     .Select(x => x)
+                    .Skip(((int)page - 1) * RecordsPerPage)
+                    .Take(RecordsPerPage)
+                    .ToList();
+                    model.Listings = FilteredListing;
+                }
             }
             return View(model);
         }

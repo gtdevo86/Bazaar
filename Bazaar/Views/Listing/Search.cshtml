@@ -14,30 +14,59 @@
         padding-bottom: 100px;
     }
 </style>
+<script src="~/bower_components/raty/lib/jquery.raty.js"></script>
 <h2>@ViewBag.Title.</h2>
 @if (!Request.IsAuthenticated)
 { <h3>Log in for more accurate location data</h3>}
+
+@using (Html.BeginForm("Search", "Listing", FormMethod.Post, new { id = "distanceForm", name = "distanceForm" }))
+{
+    @Html.Label("Distance:");
+    @Html.DropDownListFor(m => m.Distance, new SelectList(Model.DistanceDropDown, "Value", "Text"), new { @class = "form-control", onchange = "submit()" })
+    <input name="SearchTerms" type="hidden" value="@Model.SearchTerms"/>
+    <input name="CategoryType" type="hidden" value="@Model.CategoryType" />
+    <input name="CurrentPage" type="hidden" value=@Model.CurrentPage />
+}
+<div id="content"></div>
+<br />
+
 @{var i = 0;}
 <div class="row">
     @if (Model.Listings != null)
     {
         foreach (var listing in Model.Listings)
         {
-            i++;
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="thumbnail" style="width:80%">
-                    <a href="@Url.Action("View", "Listing", new { ListingId = listing.ListingId})">
-                        <img src="~/Content/images/Placeholder.png" alt="Lights" style="width:100%">
-                        <div class="caption">
-                            <p>@listing.name</p>
 
-                        </div>
+            i++;
+            <div class="col-xs-12 col-sm-6 col-md-4 bottom-buffer">
+                <div class=" img-thumbnail" style="width:250px;height:300px">
+                    <a href="@Url.Action("View", "Listing", new { ListingId = listing.ListingId })">
+                        @{ string imgstr = "../" + @listing.Image;}
+                        <img src=@imgstr class="browse-image" />
+                        <div class="Name"><p>@listing.Name</p></div>
+                        <div class="browse-rating Rating"></div>
+                        <div class="browse-price Price"><p>@String.Format("{0:C2}", @listing.Price) </p></div>
+
                     </a>
                 </div>
             </div>
         }
     }
 </div>
+@if (i == 0)
+{
+    <ul style="color:red"><li><b>No Items found, Please broaden your search.</b></li></ul>
+}
+<script>
+    $(document).ready(function () {
+        $('div.Rating').raty({
+            readOnly: true,
+            score: 5,
+            path: "../bower_components/raty/lib/images"
+        });
+    });
+</script>
+
 @{Html.RenderPartial("_Pageinator", Model, ViewData);}
 
 

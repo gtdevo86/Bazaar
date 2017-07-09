@@ -14,11 +14,18 @@ $(document).ready(function(){
     });
 });
 </script>
+
+
 @using (Html.BeginForm("Add", "Listing", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <h4>Create a new Listing.</h4>
     <hr />
+    if (ViewBag.Edited == true)
+    {
+        ViewBag.Edited = false;
+        <ul><li><b>Item added successfully.</b></li></ul>
+    }
     @Html.ValidationSummary("", new { @class = "text-danger" })
 
     <div class="form-group col-md-12">
@@ -27,7 +34,7 @@ $(document).ready(function(){
     </div>
 
     <div class="form-group  col-md-12">
-        @Html.LabelFor(m => m.price, new { @class = "ontrol-label" })
+        @Html.LabelFor(m => m.price, new { @class = "control-label" })
         <div class="left-inner-addon">
             <span>$</span>
             @Html.TextBoxFor(m => m.price, new { @class = "form-control" })

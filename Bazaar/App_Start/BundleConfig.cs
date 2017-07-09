@@ -1,6 +1,5 @@
 ﻿using System.Web;
 using System.Web.Optimization;
-
 namespace Bazaar
 {
     public class BundleConfig

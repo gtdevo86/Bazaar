@@ -16,16 +16,16 @@ namespace Bazaar.Models
 
         [Required]
         [DataType(DataType.Currency)]
-        public float price { get; set; }
+        public float Price { get; set; }
 
         [Required]
-        [StringLength(20)]
-        public string name { get; set; }
+        [StringLength(37)]
+        public string Name { get; set; }
 
         [Required]
         [DataType(DataType.MultilineText)]
         [StringLength(1000)]
-        public string description { get; set; }
+        public string Description { get; set; }
 
         [Required]
         [StringLength(450)]
@@ -40,26 +40,26 @@ namespace Bazaar.Models
 
         [Required]
         [DataType(DataType.ImageUrl)]
-        public string image { get; set; }
+        public string Image { get; set; }
 
         [Required]
         [DefaultValue(false)]
-        public bool completed { get; set; }
+        public bool Completed { get; set; }
 
         [Required]
         [StringLength(40)]
-        public String category { get; set; }
+        public String Category { get; set; }
 
-        public Listing(string Name, float Price, string Description, string imgUrl, String Category, string UserName, string zipcode)
+        public Listing(string tName, float tPrice, string tDescription, string tImgUrl, String tCategory, string tUserName, string tZipcode)
         {
-            name = Name;
-            price = Price;
-            description = Description;
-            image = imgUrl;
-            category = Category;
-            completed = false;
-            OwnerUserName = UserName;
-            OwnerZipcode = zipcode;
+            Name = tName;
+            Price = tPrice;
+            Description = tDescription;
+            Image = tImgUrl;
+            Category = tCategory;
+            Completed = false;
+            OwnerUserName = tUserName;
+            OwnerZipcode = tZipcode;
         }
 
         public Listing()

@@ -6,8 +6,8 @@
     @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Add A listing", "Add", "Listing", routeValues: null , htmlAttributes: new { @class = "top-Action-links" })</li>
-        <li>@Html.ActionLink("Manage listings", "Manage", "Listing", new {page = 1 }, new { @class = "top-Action-links" })</li>
+        <li>@Html.ActionLink("Add a Listing", "Add", "Listing", routeValues: null , htmlAttributes: new { @class = "top-Action-links" })</li>
+        <li>@Html.ActionLink("Manage Listings", "Manage", "Listing", new {page = 1 }, new { @class = "top-Action-links" })</li>
         <li>
             @Html.ActionLink("Hello " + User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "top-Action-links" })
         </li>

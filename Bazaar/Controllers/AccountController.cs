@@ -161,7 +161,7 @@ namespace Bazaar.Controllers
                 {
                     userZipCode = db.ZipCodes.Find("89128");
                 }
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, zipcode  = model.Zipcode,Longitude=userZipCode.Longitude,Latitude= userZipCode.Latitude};
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, Zipcode  = model.Zipcode,Longitude=userZipCode.Longitude,Latitude= userZipCode.Latitude};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

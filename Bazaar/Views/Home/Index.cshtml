@@ -7,6 +7,10 @@
     body {
         padding-top: 40px;
         padding-bottom: 40px;
+        background-image: url(http://joshuamgreenspan.com/bazaar/content/images/background.jpg);
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 100%;
     }
 </style>
 @using (Html.BeginForm("Search", "Listing", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -22,6 +26,8 @@
                     <!--<input type="text" class="form-control input-lg" placeholder="Find something near you!" />-->
                     <!--Placeholder to show all categories for now-->
                     <input name="Category" type="hidden" value="All" />
+                    <input name="CurrentPage" type="hidden" value=1 />
+                    <input name="Distance" type="hidden" value=25 />
                     <span class="input-group-btn">
                         <button class="btn btn-info btn-lg" type="submit">
                             <i class="glyphicon glyphicon-search"></i>

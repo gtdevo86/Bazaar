@@ -10,6 +10,12 @@
     }
 </style>
 <h2>@ViewBag.Title.</h2>
+
+@if (ViewBag.Edited == true)
+    {
+        TempData["Edited"] = false;
+        <ul><li><b>Item Edited successfully.</b></li></ul>
+    }
 @{var i = 0;}
 <div class="row">
     @if (Model.Listings != null)
@@ -17,16 +23,17 @@
         foreach (var listing in Model.Listings)
         {
             i++;
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="thumbnail" style="width:100%">
+            <div class="col-xs-12 col-sm-6 col-md-4 bottom-buffer">
+                <div class="img-thumbnail"style="width:250px;height:300px">
                     @{ var EncodeString = HttpUtility.UrlEncode(Request.Url.AbsoluteUri);}
                     <a href="@Url.Action("Edit", "Listing", new { ListingId = listing.ListingId, returnUrl = EncodeString })">
-                        <img src="~/Content/images/Placeholder.png" alt="Lights" style="width:100%">
-                        <div class="caption">
-                            <p>@listing.name</p>
+                        @{ string imgstr = "../" + @listing.Image;}
+                        <img src=@imgstr class="browse-image" />
+                        <div class="Name">
+                            <p>@listing.Name</p>
                         </div>
                     </a>
-                    <div class="DeleteIcon" style="text-align:right ">
+                    <div class="DeleteIcon">
                         @Html.ActionLink(" ", "Delete", "Listing", new { ListingId = listing.ListingId, returnUrl = EncodeString }, new { @class = "glyphicon glyphicon-trash" })
                     </div>
                 </div>

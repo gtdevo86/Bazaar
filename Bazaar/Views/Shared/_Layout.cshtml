@@ -3,17 +3,20 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title</title>
+    <title ng-bind>@ViewBag.Title</title>
    
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+
     @RenderSection("scripts", required: false)
 </head>
 <body>
-
-
+    <script src="@Url.Content("~/Scripts/jquery-3.1.1.min.js")" type="text/javascript"></script> <!-- Use your version of jQuery -->
+    <script src="@Url.Content("~/Scripts/knockout-3.4.2.js")" type="text/javascript"></script> <!-- Use your version of knockout -->
+    <script src="@Url.Content("~/Scripts/knockout.mapping-latest.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/perpetuum.knockout.js")" type="text/javascript"></script>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -42,7 +45,5 @@
             <p class="navbar-text pull-left">&copy; @DateTime.Now.Year - Joshua Greenspan</p>
         </div>
     </div>
-
-
 </body>
 </html>

@@ -19,7 +19,7 @@ namespace Bazaar.Models
         [Required]
         [StringLength(5)]
         [DataType(DataType.PostalCode)]
-        public string zipcode { get; set; }
+        public string Zipcode { get; set; }
 
         [Required]
         [Precision(9, 6)]
@@ -31,10 +31,10 @@ namespace Bazaar.Models
         public Nullable<decimal> Latitude { get; set; }
 
         [DefaultValue(0)]
-        public int reviews { get; set; }
+        public int Reviews { get; set; }
 
         [DefaultValue(0)]
-        public float rating { get; set; }
+        public float Rating { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -43,7 +43,7 @@ namespace Bazaar.Models
             // Add custom user claims here
             userIdentity.AddClaim(new Claim("Latitude", this.Latitude.ToString()));
             userIdentity.AddClaim(new Claim("Longitude", this.Longitude.ToString()));
-            userIdentity.AddClaim(new Claim("ZipCode", this.zipcode));
+            userIdentity.AddClaim(new Claim("ZipCode", this.Zipcode));
             userIdentity.AddClaim(new Claim("UserName", this.UserName));
             return userIdentity;
         }

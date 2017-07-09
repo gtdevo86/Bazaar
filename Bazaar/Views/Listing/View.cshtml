@@ -21,11 +21,11 @@
 <script src="~/bower_components/raty/lib/jquery.raty.js"></script>
 <div class="row">
     <div class="col-md-6">
-        @{ string imgstr = "../" + Model.CurrentListing.image;}
+        @{ string imgstr = "../" + Model.CurrentListing.Image;}
         <img src=@imgstr alt="Lights" style="width:100%" class="listing-photo"/>
     </div>
     <div class="col-md-4 col-md-offset-2 listing-text">
-        <h1 class=""><bold>@Model.CurrentListing.name</bold></h1>
+        <h1 class=""><bold>@Model.CurrentListing.Name</bold></h1>
     </div>
     <div class="col-md-2 Seller-name col-md-offset-1">
         <h3 class="">Seller: <a href="#">@Model.CurrentListing.OwnerUserName</a></h3>
@@ -37,13 +37,13 @@
         <hr/>
     </div>
     <div class="col-md-5 col-md-offset-1">
-        <p><span style="font-size:24px">Price: </span><span style="font-size:32px">$@Model.CurrentListing.price</span>  </p>
+        <p><span style="font-size:24px">Price: </span><span style="font-size:32px">@String.Format("{0:C2}", @Model.CurrentListing.Price)</span>  </p>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
         <h2>Description:</h2>
-        <p>@Model.CurrentListing.description</p>
+        <p>@Model.CurrentListing.Description</p>
     </div>
 
     <div class="col-md-12">

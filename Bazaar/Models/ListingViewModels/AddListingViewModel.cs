@@ -16,8 +16,8 @@ namespace Bazaar.Models.ListingViewModels
         public float price { get; set; }
 
         [Required]
-        [StringLength(30, ErrorMessage = "Name must be at least 5 characters", MinimumLength = 5)]
-        [Display(Name = "Name")]
+        [StringLength(37, ErrorMessage = "Name must be at least 5 characters", MinimumLength = 5)]
+        [Display(Name = "Name of Item")]
         public string Name { get; set; }
 
         [Required]
@@ -40,16 +40,16 @@ namespace Bazaar.Models.ListingViewModels
             new Category {CategoryId = 0, Value = "Other"},
             new Category {CategoryId = 1, Value = "Auto Parts"},
             new Category {CategoryId = 2, Value = "Books"},
-            new Category {CategoryId = 3, Value = "Cloths"},
+            new Category {CategoryId = 3, Value = "Clothes"},
             new Category {CategoryId = 4, Value = "Computers"},
             new Category {CategoryId = 5, Value = "DVDs"},
             new Category {CategoryId = 6, Value = "Electronics"},
-            new Category {CategoryId = 7, Value = "Furnature"},
+            new Category {CategoryId = 7, Value = "Furniture"},
             new Category {CategoryId = 8, Value = "Jewelry"},
             new Category {CategoryId = 9, Value = "Kitchen Appliances"},
             new Category {CategoryId = 10, Value = "Tools"},
             new Category {CategoryId = 11, Value = "Toys"},
-            new Category {CategoryId = 12, Value = "Tvs"},
+            new Category {CategoryId = 12, Value = "TVs"},
             new Category {CategoryId = 13, Value = "Video Games"}
          };
 
@@ -57,5 +57,6 @@ namespace Bazaar.Models.ListingViewModels
         [DisplayName("Pick a category")]
         public String CategoryType { get; set; }
 
-}
+        public bool Edited { get; set; }
+    }
 }

@@ -1,0 +1,39 @@
+{
+  "name": "jquery-price-format",
+  "homepage": "http://jquerypriceformat.com/",
+  "authors": [
+    "Eduardo Cuducos"
+  ],
+  "maintainer": [
+    "Flavio Silveira <flavio@gmail.com>"
+  ],
+  "description": "jQuery Price Format Plugin is a plugin to format input text and html tags as prices.",
+  "main": "jquery.price_format.js",
+  "keywords": [
+    "price",
+    "number",
+    "currency",
+    "format",
+    "mask"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": ">=1.5"
+  },
+  "_release": "v2.1",
+  "_resolution": {
+    "type": "tag",
+    "tag": "v2.1",
+    "commit": "33a3590adc224634fa01449611cf9d43b555fa44"
+  },
+  "_source": "https://github.com/flaviosilveira/Jquery-Price-Format.git",
+  "_target": "v2.1",
+  "_originalSource": "jquery-price-format",
+  "_direct": true
+}
